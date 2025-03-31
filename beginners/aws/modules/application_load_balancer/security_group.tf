@@ -29,14 +29,14 @@ resource "aws_security_group" "allow_http_instances" {
   vpc_id      = "enter_vpc_id"
 
   ingress {
-    description = "http for instances"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    description     = "http for instances"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [aws_security_group.allow_http.id]
   }
 
-ingress {
+  ingress {
     description = "ssh for instances"
     from_port   = 22
     to_port     = 22
