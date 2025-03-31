@@ -17,7 +17,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "instance" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  key_name = var.key_pair_name
+  key_name      = var.key_pair_name
 
   network_interface {
     network_interface_id = aws_network_interface.defaultNIC.id
@@ -25,7 +25,10 @@ resource "aws_instance" "instance" {
   }
 
   tags = {
-    project = "Collabnix"
+    project    = "Collabnix"
     department = "Automation"
   }
+  disable_api_termination = true
+  monitoring              = true
+  tenancy                 = "dedicated"
 }
