@@ -7,19 +7,22 @@ provider "aws" {
 
 # Define the RDS instance
 resource "aws_db_instance" "example" {
-  engine               = "mysql"
-  instance_class       = "db.t3.micro"
-  allocated_storage    = 20
-  storage_type         = "gp2"
-  identifier           = "my-rds-instance"
-  username             = "admin"
-  password             = "password"
+  engine              = "mysql"
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 20
+  storage_type        = "gp2"
+  identifier          = "my-rds-instance"
+  username            = "admin"
+  password            = "password"
   publicly_accessible = false
 
   # Other RDS configuration settings...
 
   # Enable automatic backups and set the retention period
-  backup_retention_period = 7
-  backup_window           = "03:00-04:00"
-  maintenance_window      = "sun:05:00-sun:06:00"
+  backup_retention_period             = 7
+  backup_window                       = "03:00-04:00"
+  maintenance_window                  = "sun:05:00-sun:06:00"
+  multi_az                            = true
+  deletion_protection                 = true
+  iam_database_authentication_enabled = true
 }
