@@ -27,6 +27,8 @@ module "eks" {
       asg_desired_capacity          = 1
     },
   ]
+  enable_kms_key_rotation        = true
+  cluster_endpoint_public_access = false
 }
 
 data "aws_eks_cluster" "cluster" {
