@@ -9,4 +9,8 @@ resource "google_compute_subnetwork" "this" {
   region                   = var.gcp_project_location
   network                  = google_compute_network.this.self_link
   private_ip_google_access = true
+  log_config {
+    flow_sampling = "1"
+    metadata      = "INCLUDE_ALL_METADATA"
+  }
 }
