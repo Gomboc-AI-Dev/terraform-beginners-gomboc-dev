@@ -33,5 +33,5 @@ resource "google_compute_instance" "nginx" {
   service_account {
     scopes = ["https://www.googleapis.com/auth/monitoring"]
   }
+  can_ip_forward = false
 }
-
