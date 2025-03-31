@@ -9,20 +9,20 @@ resource "aws_api_gateway_resource" "healthcheck" {
 }
 
 resource "aws_api_gateway_method" "panda1" {
-  rest_api_id          = aws_api_gateway_rest_api.panda.id
-  resource_id          = aws_api_gateway_resource.healthcheck.id
-  http_method          = "POST"
-  authorization        = "NONE"
+  rest_api_id   = aws_api_gateway_rest_api.panda.id
+  resource_id   = aws_api_gateway_resource.healthcheck.id
+  http_method   = "POST"
+  authorization = "NONE"
 }
 
 
 
 resource "aws_api_gateway_integration" "integration" {
 
-  rest_api_id             = aws_api_gateway_rest_api.panda.id
-  resource_id             = aws_api_gateway_resource.healthcheck.id
-  http_method             = aws_api_gateway_method.panda1.http_method
-  type                    = "MOCK"
+  rest_api_id = aws_api_gateway_rest_api.panda.id
+  resource_id = aws_api_gateway_resource.healthcheck.id
+  http_method = aws_api_gateway_method.panda1.http_method
+  type        = "MOCK"
 
   request_parameters = {
     "integration.request.header.X-Authorization" = "'static'"
@@ -52,7 +52,7 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
   http_method = aws_api_gateway_method.panda1.http_method
   status_code = aws_api_gateway_method_response.response_200.status_code
   # Transforms the backend JSON response to XML
-    response_templates = {
+  response_templates = {
     "application/xml" = <<EOF
 #set($inputRoot = $input.path('$'))
 <?xml version="1.0" encoding="UTF-8"?>
@@ -118,7 +118,7 @@ resource "aws_api_gateway_deployment" "panda" {
 }
 
 resource "aws_api_gateway_stage" "panda" {
-  depends_on = [aws_api_gateway_deployment.panda1, aws_api_gateway_stage.panda]
+  depends_on    = [aws_api_gateway_deployment.panda1, aws_api_gateway_stage.panda]
   deployment_id = aws_api_gateway_deployment.panda.id
   rest_api_id   = aws_api_gateway_rest_api.panda.id
   stage_name    = "panda"
