@@ -1,10 +1,10 @@
 resource "aws_s3_bucket" "my_static_website_bucket" {
-  bucket = var.s3_bucket_name
-  acl    = "public-read"
+  bucket        = var.s3_bucket_name
+  acl           = "public-read"
   force_destroy = true
 
   tags = {
-    project = "Collabnix"
+    project    = "Collabnix"
     department = "Automation"
   }
 
@@ -24,7 +24,17 @@ resource "aws_s3_bucket" "my_static_website_bucket" {
 EOF
   }
   provisioner "local-exec" {
-     command = "aws s3 cp ${var.document_directory} s3://${var.s3_bucket_name}/ --exclude \"*\" --include \"*.html\" --recursive --profile ${var.aws_profile_name} --acl public-read"
+    command = "aws s3 cp ${var.document_directory} s3://${var.s3_bucket_name}/ --exclude \"*\" --include \"*.html\" --recursive --profile ${var.aws_profile_name} --acl public-read"
   }
 
+}
+resource "aws_s3_bucket_public_access_block" "my_aws_s3_bucket_public_access_block_aws_s3_bucket_my_static_website_bucket" {
+  bucket             = aws_s3_bucket.my_static_website_bucket.id
+  ignore_public_acls = true
+}
+resource "aws_s3_bucket_versioning" "my_aws_s3_bucket_versioning_aws_s3_bucket_my_static_website_bucket" {
+  bucket = aws_s3_bucket.my_static_website_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
