@@ -1,7 +1,7 @@
 {
-  "variable": {
-    "example": {
-      "default": "panda"
+  "variable" : {
+    "example" : {
+      "default" : "panda"
     }
   }
 }

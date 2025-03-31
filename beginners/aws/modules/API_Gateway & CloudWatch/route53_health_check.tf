@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "sns" {
-  name = "user-updates-topic"
+  name              = "user-updates-topic"
+  kms_master_key_id = "alias/aws/sns"
 }
 
 locals {
@@ -7,17 +8,17 @@ locals {
 }
 
 output "rest_api_id" {
-    value = local.rest_api_id
+  value = local.rest_api_id
 }
 
 resource "aws_route53_health_check" "http" {
-  fqdn              =     format("%s.%s",aws_api_gateway_rest_api.panda.id,"execute-api.enter_region.amazonaws.com")
+  fqdn                            = format("%s.%s", aws_api_gateway_rest_api.panda.id, "execute-api.enter_region.amazonaws.com")
   insufficient_data_health_status = "Healthy"
-  port              = 443
-  type              = "HTTPS"
-  resource_path     = "/"
-  failure_threshold = "3"
-  request_interval  = "30"
+  port                            = 443
+  type                            = "HTTPS"
+  resource_path                   = "/"
+  failure_threshold               = "3"
+  request_interval                = "30"
 
   tags = {
     Name = "api-health-check"
