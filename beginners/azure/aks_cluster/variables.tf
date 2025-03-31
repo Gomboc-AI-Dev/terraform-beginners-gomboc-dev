@@ -18,9 +18,9 @@ variable "resource_group_name" {}
 variable "log_analytics_workspace_name" {}
 
 variable "log_analytics_workspace_location" {
-    default = "eastus"
+  default = "eastus"
 }
 variable "log_analytics_workspace_sku" {
-    default = "PerNode"
+  default = "PerNode"
 }
 
